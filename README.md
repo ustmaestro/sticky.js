@@ -1,6 +1,6 @@
 # sticky.js
 
-StickyJS is a small and powerfull javascript plugin for easy create sticky elements
+StickyJS is a small and powerfull javascript plugin for easy create sticky elements. No other libraries is needed. Support IE8+.
 
 	stickyJs('.sticky-widget').setOptions({relativeElement: '.content', topMargin: 46}).start();
 

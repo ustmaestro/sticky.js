@@ -1,5 +1,5 @@
 /**
- * Sticky.js v1.0.0
+ * sticky.js v1.0.0
  * https://github.com/ustmaestro/sticky.js
  * MIT licensed
  *
@@ -132,17 +132,16 @@
 	
 	
 	function _stickyScroll(targetElement,_elementOffset,relativeElement,className,staticClassNam,fixedClassName,absoluteClassName,topMargin,bottomMargin){
-		var _targetRect = targetElement.getBoundingClientRect();
-		_relativeOffset = _getOffset(relativeElement);		
-		targetElement.style.width = _elementOffset.width + 'px';
-		if((window.scrollY + topMargin) > _elementOffset.top){			
-			if((window.scrollY + topMargin + _elementOffset.height) > (_relativeOffset.bottom - bottomMargin)){
+		var _targetRect = targetElement.getBoundingClientRect(),
+			_relativeOffset = _getOffset(relativeElement),
+			_windowScrollY = _getScrollY();
+		console.log(_relativeOffset, _elementOffset,_targetRect,_windowScrollY);	
+		targetElement.style.width = _elementOffset.width + 'px';		
+		if((_windowScrollY + topMargin) > _elementOffset.top){			
+			if((_windowScrollY + topMargin + _elementOffset.height) > (_relativeOffset.bottom - bottomMargin)){
 				targetElement.className = (className + ' ' + absoluteClassName);
 				targetElement.style.position = 'absolute';				
 				targetElement.style.top = (_relativeOffset.bottom  - bottomMargin - _elementOffset.height) + 'px';
-					
-			console.log(_relativeOffset.height,_relativeOffset.top,_relativeOffset.bottom, bottomMargin,_elementOffset.height,targetElement.style.top);
-			console.log(targetElement.style.top);
 			} else {			
 				targetElement.className = (className + ' ' + fixedClassName);
 				targetElement.style.position = 'fixed';				
@@ -180,6 +179,17 @@
 		elementPosition.bottom = elementPosition.top + elementPosition.height;
 		elementPosition.right = elementPosition.left + elementPosition.width;
 		return elementPosition;
+	}
+	
+	/**
+	* Window scroll Y 
+	*
+	* @api private
+	* @method _getScrollY
+	* @returns windows scroll y position
+	*/
+	function _getScrollY() {
+		return window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 	}
 
 	/**
